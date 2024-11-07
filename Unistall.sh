@@ -3,42 +3,34 @@
 # =======================================
 #       Desinstalador de My Project
 # =======================================
-echo ""
-echo "Iniciando desinstalación de My Project..."
-echo ""
 
-# Pregunta si deseas continuar con la desinstalación
-echo "¿Deseas desinstalar My Project? (s/n)"
-read respuesta
-echo ""
+zenity --question --title="Desinstalación de My Project" --width=400 --height=200 --text="¿Deseas desinstalar My Project?" --ok-label="Sí" --cancel-label="No"
 
-if [ "$respuesta" == "s" ]; then
+if [ $? -eq 0 ]; then
     # Eliminar el acceso directo de la aplicación
     if [ -f ~/.local/share/applications/My_project.desktop ]; then
         rm ~/.local/share/applications/My_project.desktop
-        echo "El acceso directo de My Project ha sido eliminado."
+        zenity --info --width=400 --height=200 --text="El acceso directo de My Project ha sido eliminado."
     else
-        echo "El acceso directo no existe o ya ha sido eliminado previamente."
+        zenity --warning --width=400 --height=200 --text="El acceso directo no existe o ya ha sido eliminado previamente."
     fi
 
-    echo ""
-
     # Actualizar la base de datos de aplicaciones
-    echo "Actualizando la base de datos de aplicaciones..."
+    zenity --info --width=400 --height=200 --text="Actualizando la base de datos de aplicaciones..."
     update-desktop-database ~/.local/share/applications/
-    echo ""
 
-    # Otras acciones opcionales
-    # Puedes agregar otras acciones aquí, como eliminar carpetas o archivos adicionales.
-    # Ejemplo:
-    # rm -rf /home/diego/Code/NN/project/version1.0/
+    # Buscar y eliminar la carpeta del proyecto
+    project_path=$(find / -type d -name "My_Project" 2>/dev/null | zenity --list --title="Selecciona la carpeta a eliminar" --text="Carpeta My_Project encontrada en las siguientes ubicaciones:" --column="Rutas")
+
+    if [ -n "$project_path" ]; then
+        rm -rf "$project_path"
+        zenity --info --width=400 --height=200 --text="La carpeta My_Project en $project_path ha sido eliminada."
+    else
+        zenity --warning --width=400 --height=200 --text="No se encontró ninguna carpeta llamada My_Project o se canceló la selección."
+    fi
 
     # Finalización
-    echo "======================================="
-    echo "     Desinstalación completada."
-    echo "======================================="
-    echo ""
+    zenity --info --width=400 --height=200 --text="Desinstalación completada exitosamente."
 else
-    echo "Desinstalación cancelada."
-    echo ""
+    zenity --info --width=400 --height=200 --text="Desinstalación cancelada."
 fi
