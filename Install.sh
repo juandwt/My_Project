@@ -1,6 +1,9 @@
 #!/bin/bash -i
 
 # 1. Descargar Install.sh 
+
+# *. sudo apt update for last version of Ubuntu
+
 # 2. chmod +x Install.sh  
 # 3. Revisar dependencias, entre ellas git para descargar el proyecto
 # 4. Descargar proyecto con git clone (preguntar dónde quiere guardar el proyecto)
