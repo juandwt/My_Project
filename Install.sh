@@ -67,9 +67,6 @@ check_packages_status() {
 check_packages_status
 
 
-
-
-
 # Pregunta al usuario dónde desea clonar el proyecto
 PROJECT_DIR=$(zenity --file-selection --directory --title="Selecciona el directorio donde deseas guardar el proyecto")
 
