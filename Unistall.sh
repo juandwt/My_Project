@@ -11,7 +11,7 @@ if [ $? -eq 0 ]; then
     zenity --question --title="Eliminar Dependencias" --width=400 --height=200 --text="Se eliminarán todas las dependencias relacionadas con My Project. ¿Deseas continuar?" --ok-label="Sí" --cancel-label="No"
     if [ $? -eq 0 ]; then
         # Eliminar dependencias
-        SYSTEM_PACKAGES=("git" "python3" "python3-tk" "python3-matplotlib" "python3-numpy" "python3-sympy")
+        SYSTEM_PACKAGES=("git" "python3" "python3-tk" "python3-matplotlib" "python3-numpy" "python3-scipy")
         for package in "${SYSTEM_PACKAGES[@]}"; do
             if dpkg -l | grep -q "^ii  $package "; then
                 sudo apt remove --purge -y "$package"
