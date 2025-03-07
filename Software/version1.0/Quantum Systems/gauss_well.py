@@ -8,7 +8,7 @@ from scipy.special import eval_hermite, factorial
 plt.rcParams['toolbar'] = 'none'
 plt.rcParams['mathtext.fontset'] = 'cm'  # Usa la fuente Computer Modern para matemáticas
 font_params = {"fontsize": 16, "fontweight": "bold", "fontstyle": "italic"}
-plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
+#plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
 
 
 E = {'psi0': lambda a, b: 0.25*a**2 - 20.0*a*np.exp(-0.22*b**2 + 0.0493827160493827*b**2/(1.0*a**2 + 0.22))/np.sqrt(1.0*a**2 + 0.22)
