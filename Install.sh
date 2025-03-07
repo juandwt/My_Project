@@ -89,7 +89,7 @@ fi
 # Crear el archivo .desktop para el acceso directo
 echo "[Desktop Entry]
 Version=1.0
-Name=My Project
+Name=QVS
 Exec=python3 $PROJECT_DIR/My_Project/Software/version1.0/main.py
 Icon=$PROJECT_DIR/My_Project/Software/version1.0/logo.svg
 Type=Application
