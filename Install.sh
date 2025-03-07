@@ -18,7 +18,7 @@ DESKTOP_DIR=$(xdg-user-dir DESKTOP)
 zenity --info --title="Bienvenido al instalador" --width=400 --height=200 --text="Vamos a verificar las dependencias" --ok-label="Continuar"
 
 # Lista de paquetes necesarios
-SYSTEM_PACKAGES=("git" "python3" "python3-tk" "python3-matplotlib" "python3-numpy" "python3-sympy")
+SYSTEM_PACKAGES=("git" "python3" "python3-tk" "python3-matplotlib" "python3-numpy" "python3-scipy")
 
 # Función para verificar si los paquetes están instalados y preparar comandos de instalación
 check_packages_status() {
@@ -91,7 +91,7 @@ echo "[Desktop Entry]
 Version=1.0
 Name=My Project
 Exec=python3 $PROJECT_DIR/My_Project/Software/version1.0/main.py
-Icon=$PROJECT_DIR/My_Project/Software/version1.0/app.png
+Icon=$PROJECT_DIR/My_Project/Software/version1.0/logo.svg
 Type=Application
 Terminal=false
 Categories=Development;" > "$DESKTOP_DIR/My_project.desktop"
