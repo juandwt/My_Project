@@ -511,7 +511,7 @@ if __name__ == "__main__":
     window = tk.Tk()
     window.config(bg="#FFFFFF")
     window.minsize(1100, 530) # 1100 550
- #   window.maxsize(1100, 530)
+    window.maxsize(1100, 530)
     app = Gui(window=window)
-    #app.logo()
+    app.logo()
     window.mainloop()
