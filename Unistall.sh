@@ -25,10 +25,26 @@ if [ $? -eq 0 ]; then
         rm "$DESKTOP_DIR/My_project.desktop"
     fi
 
-    # Buscar y eliminar la carpeta del proyecto
-    project_path=$(find / -type d -name "My_Project" 2>/dev/null)
-    if [ -n "$project_path" ]; then
-        rm -rf "$project_path"
+    # Buscar y eliminar todas las carpetas del proyecto
+    echo "Buscando la carpeta del proyecto..."
+    project_paths=$(find /home -type d -name "My_Project" 2>/dev/null)
+
+    if [ -n "$project_paths" ]; then
+        for project_path in $project_paths; do
+            echo "Carpeta encontrada en: $project_path"
+            rm -rf "$project_path"  # Eliminar la carpeta
+        done
+    else
+        echo "Carpeta no encontrada."
+    fi
+
+    # Eliminar las carpetas dentro de la papelera
+    trash_paths=$(find ~/.local/share/Trash/files/ -type d -name "My_Project" 2>/dev/null)
+    if [ -n "$trash_paths" ]; then
+        for trash_path in $trash_paths; do
+            echo "Carpeta encontrada en la papelera: $trash_path"
+            rm -rf "$trash_path"  # Eliminar la carpeta en la papelera
+        done
     fi
 
     # Finalización
