@@ -547,5 +547,5 @@ if __name__ == "__main__":
     window.minsize(1150, 550) # 1100 550
     window.maxsize(1150, 550)
     app = Gui(window=window)
-    #app.Algorithm()
+    app.logo()
     window.mainloop()
