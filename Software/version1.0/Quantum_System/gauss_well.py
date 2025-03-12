@@ -1,14 +1,16 @@
 import sympy as sp
 import numpy as np
+
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 from matplotlib.animation import FuncAnimation
 from scipy.special import eval_hermite, factorial
+from matplotlib.ticker import MaxNLocator
 
 plt.rcParams['toolbar'] = 'none'
 plt.rcParams['mathtext.fontset'] = 'cm'  # Usa la fuente Computer Modern para matemáticas
 font_params = {"fontsize": 16, "fontweight": "bold", "fontstyle": "italic"}
-#plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
+plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
 
 
 E = {'psi0': lambda a, b: 0.25*a**2 - 20.0*a*np.exp(-0.22*b**2 + 0.0493827160493827*b**2/(1.0*a**2 + 0.22))/np.sqrt(1.0*a**2 + 0.22)
@@ -37,45 +39,16 @@ def gauss_well(V0):
     Z = gaussian_potential(X, Y, 0)  # Corte en z = 
 
     fig = plt.figure()
-    #ax = fig.add_subplot(111, projection='3d', )
     ax = plt.axes(projection='3d',computed_zorder=False)
     ax.grid(False)
 
     ax.set_box_aspect([2.5, 2.5, 3])
 
-    n_particles = 1
-    
     scatter = ax.scatter(0, 0, -5.5, color='#000000' , s=30, zorder=100)
     ax.text(0, 0, -5, r'$e^- \Rightarrow E_{n}$', fontsize=16, color='black', ha='center')
-    
-    camera_angle = [10]
 
-    def update(frame):
-        #x_pos = 0
-        #y_pos = 0
-        #z_pos = 0
-
-        #x_random = np.random.normal(loc=x_pos, scale=0, size=n_particles)
-        #y_random = np.random.normal(loc=y_pos, scale=0, size=n_particles)
-        #z_random = np.random.normal(loc=z_pos, scale=0, size=n_particles)
-
-        #scatter._offsets3d = (x_random, y_random, z_random)
-
-        camera_angle[0] += 1
-        ax.view_init(elev=16, azim=camera_angle[0])
-        #return scatter,
-
-    #ani = FuncAnimation(fig, update, frames=np.linspace(0, 1, 100), interval=50, repeat=False)
-    ani = 0
-    #ax.plot_wireframe(X, Y, Z, color="#000000", alpha=0.7)
     ax.plot_surface(X, Y, Z, cmap='viridis', alpha=0.8)
     ax.contour(X, Y, Z, zdir='z', offset=-21,  alpha=0.7, levels=10)
-    
-    #ax.contour(X, Y, Z, zdir='y', levels=10, offset=ax.get_ylim()[0], colors="black", alpha=0.7)
-
-    #ax.plot([-5, 5], [0, 0], [0, 0], color='gray', linewidth=1)    
-    #ax.plot([0, 0], [-5, 5], [0, 0], color='gray', linewidth=1)    
-    #ax.plot([0, 0], [0, 0], [-0.5, 0.5], color='gray', linewidth=1)    
     
     ax.set_xlabel('x')
     ax.set_ylabel('y')
@@ -86,13 +59,14 @@ def gauss_well(V0):
     ax.xaxis.pane.set_edgecolor('black')
     ax.yaxis.pane.set_edgecolor('black')
     ax.zaxis.pane.set_edgecolor('black')
+
     ax.xaxis.pane.fill = False
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
 
-    ax.xaxis.set_major_locator(MultipleLocator(3))
-    ax.yaxis.set_major_locator(MultipleLocator(4))
-    ax.zaxis.set_major_locator(MultipleLocator(5))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
 
     ax.xaxis._axinfo['tick']['inward_factor'] = 0
     ax.xaxis._axinfo['tick']['outward_factor'] = 0.4
@@ -100,10 +74,7 @@ def gauss_well(V0):
     ax.yaxis._axinfo['tick']['outward_factor'] = 0.4
     ax.zaxis._axinfo['tick']['inward_factor'] = 0
     ax.zaxis._axinfo['tick']['outward_factor'] = 0.4
-    ax.axis("off")
-    #ax.set_zlim(-1, 0.5)
-    plt.savefig("logo.svg", format="svg", transparent=True, dpi=300)
-    return fig, ani
+    return fig
 
 
 n = None
@@ -120,22 +91,24 @@ def function_2p(n_param):
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    ax.set_box_aspect([7, 4.5, 2.5])
+    ax.set_box_aspect([7, 4.5, 3])
 
     ax.plot_surface(A, B, Z,cmap='viridis', edgecolor='none', rstride=2, cstride=2, alpha=0.7)
     ax.contour(A, B, Z, zdir='z', offset=ax.get_zlim()[0],  alpha=0.7, levels=10)
     
-    ax.view_init(elev=40, azim=150)
+    ax.view_init(elev=16, azim=120)
     ax.xaxis.pane.set_edgecolor('black')
     ax.yaxis.pane.set_edgecolor('black')
     ax.zaxis.pane.set_edgecolor('black')
+
     ax.xaxis.pane.fill = False
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
-    ax.xaxis.set_major_locator(MultipleLocator(2))
-    ax.yaxis.set_major_locator(MultipleLocator(2))
-    ax.zaxis.set_major_locator(MultipleLocator(10))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
+    
     ax.xaxis._axinfo['tick']['inward_factor'] = 0
     ax.xaxis._axinfo['tick']['outward_factor'] = 0.4
     ax.yaxis._axinfo['tick']['inward_factor'] = 0
@@ -229,9 +202,9 @@ def minimizacion(a_values, b_values, l_r, e_p, p_1, p_2):
     
     ax.plot_surface(A, B, Z,cmap='viridis', edgecolor='none', rstride=2, cstride=2, alpha=0.7)
     ax.contour(A, B, Z, zdir='z', offset=ax.get_zlim()[0],  alpha=0.7, levels=10)
-    ax.set_box_aspect([7, 4.5, 2.5])
+    ax.set_box_aspect([7, 4.5, 3])
     
-    ax.view_init(elev=40, azim=150)
+    ax.view_init(elev=16, azim=120)
     ax.xaxis.pane.set_edgecolor('black')
     ax.yaxis.pane.set_edgecolor('black')
     ax.zaxis.pane.set_edgecolor('black')
@@ -239,9 +212,10 @@ def minimizacion(a_values, b_values, l_r, e_p, p_1, p_2):
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
-    ax.xaxis.set_major_locator(MultipleLocator(2))
-    ax.yaxis.set_major_locator(MultipleLocator(2))
-    ax.zaxis.set_major_locator(MultipleLocator(10))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
+
     ax.xaxis._axinfo['tick']['inward_factor'] = 0
     ax.xaxis._axinfo['tick']['outward_factor'] = 0.4
     ax.yaxis._axinfo['tick']['inward_factor'] = 0
@@ -297,7 +271,7 @@ def minimizacion(a_values, b_values, l_r, e_p, p_1, p_2):
     
     ani = FuncAnimation(fig, update, frames=len(E_x), init_func=init, blit=False, interval=50, repeat=False)
     #ani.save("min_gauss.mp4", writer="ffmpeg", fps=30)
-    #plt.savefig("min_gauss.pdf")
+    #plt.savefig("gauss_min.pdf", format="pdf", transparent=True, dpi=300)
     return fig, ani, theta_a, theta_b
 
 def wave_function(n, alpha, beta):
@@ -308,8 +282,8 @@ def wave_function(n, alpha, beta):
         hermite_poly = eval_hermite(n, alpha * (x - beta))
         return normalization * (alpha / np.pi**0.25) * hermite_poly * gaussian
     
-    x = np.linspace(-4, 4, 40)
-    y = np.linspace(-4, 4, 40)
+    x = np.linspace(-4, 4, 60)
+    y = np.linspace(-4, 4, 60)
     
     X, Y = np.meshgrid(x, y)
     phi_x = phi_n(x, n, alpha, beta)
@@ -320,8 +294,11 @@ def wave_function(n, alpha, beta):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     
-    surf = ax.plot_surface(X, Y, phi_c, cmap='viridis', edgecolor='none', alpha=0.7, rstride=2, cstride=2)
+    surf = ax.plot_surface(X, Y, phi_c, cmap='viridis', edgecolor='none', alpha=0.7)
+    
     ax.contour(X, Y, phi_c, zdir='z', offset=ax.get_zlim()[0],  alpha=0.7, levels=10)
+    ax.contour(X, Y, phi_c, zdir='y', offset=ax.get_ylim()[0],  alpha=0.7, levels=10, colors="gray")
+    ax.contour(X, Y, phi_c, zdir='x', offset=ax.get_xlim()[1],  alpha=0.7, levels=10, colors="gray")
     
     fig.colorbar(surf, ax=ax, shrink=0.5, pad=0.1,  aspect=30)  # Barra de color
     
@@ -329,7 +306,7 @@ def wave_function(n, alpha, beta):
     ax.set_ylabel('y')
     ax.set_title(r"$\Psi_{%d}(x, y; \alpha={%.2f}, \beta={%.2e})$" % (n, alpha, beta), fontsize=16)
     
-    ax.set_box_aspect([4, 4, 2])
+    ax.set_box_aspect([4, 4, 3])
     ax.view_init(elev=16, azim=120)
     ax.xaxis.pane.set_edgecolor('black')
     ax.yaxis.pane.set_edgecolor('black')
@@ -338,9 +315,10 @@ def wave_function(n, alpha, beta):
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
-    ax.xaxis.set_major_locator(MultipleLocator(2))
-    ax.yaxis.set_major_locator(MultipleLocator(2))
-    ax.zaxis.set_major_locator(MultipleLocator(2))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
+
     ax.xaxis._axinfo['tick']['inward_factor'] = 0
     ax.xaxis._axinfo['tick']['outward_factor'] = 0.4
     ax.yaxis._axinfo['tick']['inward_factor'] = 0
@@ -350,18 +328,21 @@ def wave_function(n, alpha, beta):
     ax.grid(False)
     
     #plt.savefig("wave_gauss.pdf")
+    #plt.savefig("gauss_den.pdf", format="pdf", transparent=True, dpi=300)
+
     plt.tight_layout()
 
 
 def density(n, alpha, beta):
+    
     def phi_n(x, n, alpha, beta):
         normalization = 1 / np.sqrt(2**n * factorial(n))
         gaussian = np.exp(-0.5 * alpha**2 * (x - beta)**2)
         hermite_poly = eval_hermite(n, alpha * (x - beta))
         return normalization * (alpha / np.pi**0.25) * hermite_poly * gaussian
     
-    x = np.linspace(-4, 4, 40)
-    y = np.linspace(-4, 4, 40)
+    x = np.linspace(-3, 3, 60)
+    y = np.linspace(-3, 3, 60)
     
     X, Y = np.meshgrid(x, y)
     
@@ -374,8 +355,10 @@ def density(n, alpha, beta):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     
-    surf = ax.plot_surface(X, Y, phi_d, cmap='viridis', edgecolor='none', alpha=0.7, rstride=2, cstride=2)
+    surf = ax.plot_surface(X, Y, phi_d, cmap='viridis', edgecolor='none', alpha=0.7)
     ax.contour(X, Y, phi_d, zdir='z', offset=ax.get_zlim()[0],  alpha=0.7, levels=10)
+    ax.contour(X, Y, phi_d, zdir='y', offset=ax.get_ylim()[0],  alpha=0.7, levels=10, colors="gray")
+    ax.contour(X, Y, phi_d, zdir='x', offset=ax.get_xlim()[1],  alpha=0.7, levels=10, colors="gray")
     
     #ax.plot_surface(A, B, Z,cmap='viridis', edgecolor='none', rstride=2, cstride=2, alpha=0.7)
     fig.colorbar(surf, ax=ax, shrink=0.5, pad=0.1,  aspect=30)  # Barra de color
@@ -384,7 +367,7 @@ def density(n, alpha, beta):
     ax.set_ylabel('y')
     ax.set_title(r"$P(x, y) = |\langle x, y | \Psi_{%d}(\alpha={%.2f}, \beta={%.2e}) \rangle|^{2}$" % (n, alpha, beta), fontsize=16)
     
-    ax.set_box_aspect([4, 4, 2])
+    ax.set_box_aspect([4, 4, 3])
     ax.view_init(elev=16, azim=120)
     ax.xaxis.pane.set_edgecolor('black')
     ax.yaxis.pane.set_edgecolor('black')
@@ -393,9 +376,9 @@ def density(n, alpha, beta):
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
-    ax.xaxis.set_major_locator(MultipleLocator(2))
-    ax.yaxis.set_major_locator(MultipleLocator(2))
-    ax.zaxis.set_major_locator(MultipleLocator(2))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
 
     ax.xaxis._axinfo['tick']['inward_factor'] = 0
     ax.xaxis._axinfo['tick']['outward_factor'] = 0.4
@@ -406,4 +389,3 @@ def density(n, alpha, beta):
     ax.grid(False)
     
     plt.tight_layout()
-
