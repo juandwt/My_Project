@@ -4,11 +4,12 @@ from matplotlib.ticker import MultipleLocator
 import numpy as np
 from scipy.special import eval_hermite, factorial
 from matplotlib.animation import FuncAnimation
+from matplotlib.ticker import MaxNLocator
 
 plt.rcParams['toolbar'] = 'none'
 plt.rcParams['mathtext.fontset'] = 'cm'  # Usa la fuente Computer Modern para matemáticas
 font_params = {"fontsize": 16, "fontweight": "bold", "fontstyle": "italic"}
-#plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
+plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
 
 
 def Anarmonic():   
@@ -167,9 +168,9 @@ def minimizacion(a_values, b_values, l_r, e_p, p_1, p_2):
     
     ax.contour(A, B, Z, zdir='z', offset=ax.get_zlim()[0],  alpha=0.7)
     
-    ax.set_box_aspect([7, 4.5, 2.5])
+    ax.set_box_aspect([4, 4, 2])
     
-    ax.view_init(elev=40, azim=150)
+    ax.view_init(elev=16, azim=120)
     ax.xaxis.pane.set_edgecolor('black')
     ax.yaxis.pane.set_edgecolor('black')
     ax.zaxis.pane.set_edgecolor('black')
@@ -177,9 +178,10 @@ def minimizacion(a_values, b_values, l_r, e_p, p_1, p_2):
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
-    ax.xaxis.set_major_locator(MultipleLocator(1))
-    ax.yaxis.set_major_locator(MultipleLocator(1))
-    ax.zaxis.set_major_locator(MultipleLocator(1))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=5))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=5))
+
     ax.xaxis._axinfo['tick']['inward_factor'] = 0
     ax.xaxis._axinfo['tick']['outward_factor'] = 0.4
     ax.yaxis._axinfo['tick']['inward_factor'] = 0
@@ -227,7 +229,8 @@ def minimizacion(a_values, b_values, l_r, e_p, p_1, p_2):
     ani = FuncAnimation(fig, update, frames=len(E_x), init_func=init, blit=False, interval=50, repeat=False)
     #plt.show()
     #ani.save("min_Ah.mp4", writer="ffmpeg", fps=30)
-    plt.savefig("min_Ah.pdf")
+
+    #plt.savefig("min_Ah.pdf", format="pdf", transparent=True, dpi=300)
     return fig, ani, theta_a, theta_b
 
 #minimizacion(*function_2p(0), 0.01, 100, 0.7, 0.5)
@@ -240,8 +243,8 @@ def wave_function(n, alpha, beta):
         hermite_poly = eval_hermite(n, alpha * (x - beta) / alpha)
         return normalization * (alpha / np.pi**0.25) * hermite_poly * gaussian
 
-    x = np.linspace(-5, 5, 40)
-    y = np.linspace(-5, 5, 40)
+    x = np.linspace(-5, 5, 70)
+    y = np.linspace(-5, 5, 70)
     
     X, Y = np.meshgrid(x, y)
     phi_x = phi_n(x, n, alpha, beta)
@@ -272,6 +275,11 @@ def wave_function(n, alpha, beta):
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=5))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=5))
+
+
     #ax.xaxis.set_major_locator(MultipleLocator(4))
     #ax.yaxis.set_major_locator(MultipleLocator(4))
     #ax.zaxis.set_major_locator(MultipleLocator(4))
@@ -282,7 +290,8 @@ def wave_function(n, alpha, beta):
     ax.zaxis._axinfo['tick']['inward_factor'] = 0
     ax.zaxis._axinfo['tick']['outward_factor'] = 0.4
     ax.grid(False)
-    plt.savefig("wave_Ah.pdf")
+    #plt.savefig("wave_Ah.pdf", format="pdf", transparent=True, dpi=300)
+    #plt.savefig("wave_Ah.pdf")
     plt.tight_layout()
 
 def density(n, alpha, beta):
@@ -309,7 +318,10 @@ def density(n, alpha, beta):
     ax = fig.add_subplot(111, projection='3d')
     
     surf = ax.plot_surface(X, Y, phi_d, cmap='viridis', edgecolor='none', alpha=0.7, rstride=2, cstride=2)
+    
     ax.contour(X, Y, phi_d, zdir='z', offset=ax.get_zlim()[0],  alpha=0.7, levels=15)
+    ax.contour(X, Y, phi_d, zdir='y', offset=ax.get_ylim()[0],  alpha=0.7, levels=5, colors="gray")
+    ax.contour(X, Y, phi_d, zdir='x', offset=ax.get_xlim()[1],  alpha=0.7, levels=5, colors="gray")
     
     #ax.plot_surface(A, B, Z,cmap='viridis', edgecolor='none', rstride=2, cstride=2, alpha=0.7)
     fig.colorbar(surf, ax=ax, shrink=0.5, pad=0.1,  aspect=30)  # Barra de color
@@ -327,6 +339,10 @@ def density(n, alpha, beta):
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=5))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=5))
+
     #ax.xaxis.set_major_locator(MultipleLocator(4))
     #ax.yaxis.set_major_locator(MultipleLocator(4))
     #ax.zaxis.set_major_locator(MultipleLocator(4))
