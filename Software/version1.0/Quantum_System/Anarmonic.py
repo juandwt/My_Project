@@ -9,7 +9,7 @@ from matplotlib.ticker import MaxNLocator
 plt.rcParams['toolbar'] = 'none'
 plt.rcParams['mathtext.fontset'] = 'cm'  # Usa la fuente Computer Modern para matemáticas
 font_params = {"fontsize": 16, "fontweight": "bold", "fontstyle": "italic"}
-plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
+#plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
 
 
 def Anarmonic():   
