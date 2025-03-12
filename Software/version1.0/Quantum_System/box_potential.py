@@ -2,11 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 from matplotlib.animation import FuncAnimation
+from matplotlib.ticker import MaxNLocator
 
 plt.rcParams['toolbar'] = 'none'
 plt.rcParams['mathtext.fontset'] = 'cm'  # Usa la fuente Computer Modern para matemáticas
 font_params = {"fontsize": 16, "fontweight": "bold", "fontstyle": "italic"}
-#plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
+plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
 
 
 E = {'E1': lambda a, b:  (105.0*a**2 + 42.0*a*b + 5.9999999999997*b**2)/(21*a**2 + 9*a*b + b**2),
@@ -18,7 +19,6 @@ E = {'E1': lambda a, b:  (105.0*a**2 + 42.0*a*b + 5.9999999999997*b**2)/(21*a**2
      }
 
 def Box():
-    
     fig = plt.figure()
     ax = plt.axes(projection='3d',computed_zorder=False)
     
@@ -43,7 +43,7 @@ def Box():
     ax.text(0.5, 0.5, 1,r'$e^- \Rightarrow E_{n}$', fontsize=16, color='black', ha='center')
 
 
-    ax.set_title(r"$\left[ \frac{\hat{p}^2}{2m} + 0 \hat{P}_{dentro} + \infty \hat{P}_{fuera} \right] |\psi\rangle = E|\psi\rangle$", fontsize=16)
+    ax.set_title(r"$\left[ \frac{\hat{p}^2}{2m} + 0 \hat{P}_{\text{dentro}} + \infty \hat{P}_{\text{fuera}} \right] |\psi\rangle = E|\psi\rangle$", fontsize=16)
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.set_zlim(0, 1)
@@ -79,7 +79,7 @@ def function_2p(n_param):
     
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    ax.set_box_aspect([7, 4.5, 2.5])
+    ax.set_box_aspect([7, 4.5, 3])
 
 
     if   n == 1:
@@ -127,9 +127,9 @@ def function_2p(n_param):
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
-    ax.xaxis.set_major_locator(MultipleLocator(1))
-    ax.yaxis.set_major_locator(MultipleLocator(2))
-    ax.zaxis.set_major_locator(MultipleLocator(10))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=5))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=5))
 
     ax.xaxis._axinfo['tick']['inward_factor'] = 0
     ax.xaxis._axinfo['tick']['outward_factor'] = 0.4
@@ -141,7 +141,6 @@ def function_2p(n_param):
     ax.set_xlabel(r'$\alpha$', fontsize=16)
     ax.set_ylabel(r'$\beta$',  fontsize=16)
     ax.set_zlabel(r'$E(\alpha, \beta)$', fontsize=16)
-
 
     ax.grid(False)
     ax.set_title(r"$\langle E_{%d}(α, β) \rangle = \frac{\langle \Psi_{%d}(x) | \hat{H} | \Psi_{%d}(x) \rangle}{\langle \Psi_{%d}(x) | \Psi_{%d}(x) \rangle}$" % (n, n, n, n, n), fontsize=16)
@@ -199,9 +198,9 @@ def minimizacion(a_values, b_values, l_r, e_p, p_1, p_2):
     ax.plot_surface(A, B, Z,cmap='viridis', edgecolor='none', rstride=2, cstride=2, alpha=0.7)
     ax.contour(A, B, Z, zdir='z', offset=ax.get_zlim()[0],  alpha=0.7, levels=15)
     
-    ax.set_box_aspect([7, 4.5, 2.5])
+    ax.set_box_aspect([4, 4, 2])
     
-    ax.view_init(elev=40, azim=150)
+    ax.view_init(elev=16, azim=120)
     ax.xaxis.pane.set_edgecolor('black')
     ax.yaxis.pane.set_edgecolor('black')
     ax.zaxis.pane.set_edgecolor('black')
@@ -209,9 +208,10 @@ def minimizacion(a_values, b_values, l_r, e_p, p_1, p_2):
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
-    #ax.xaxis.set_major_locator(MultipleLocator(50))
-    #ax.yaxis.set_major_locator(MultipleLocator(50))
-    #ax.zaxis.set_major_locator(MultipleLocator(50))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
+
     ax.xaxis._axinfo['tick']['inward_factor'] = 0
     ax.xaxis._axinfo['tick']['outward_factor'] = 0.4
     ax.yaxis._axinfo['tick']['inward_factor'] = 0
@@ -268,15 +268,14 @@ def minimizacion(a_values, b_values, l_r, e_p, p_1, p_2):
     ani = FuncAnimation(fig, update, frames=len(E_x), init_func=init, blit=False, interval=50, repeat=False)
     
     #ani.save("min_slab.mp4", writer="ffmpeg", fps=30)
-    plt.savefig("min_slab.pdf")  # Guardar imagen después de la animación
+    #plt.savefig("min_slab.pdf", format="pdf", transparent=True, dpi=300)
     return fig, ani, theta_a, theta_b
-
 
 def wave_function(n, alpha, beta):
     def phi_n(x, n, alpha, beta):
             if n == 1:
                 return x * (1 - x) + beta * x**2 * (1 - x)**2 + alpha * x**2 * (1 - x)**3
-        
+
             product_terms = np.ones_like(x)  # Inicializar con unos para evitar errores
             for k in range(1, n):
                 product_terms *= (k/n - x)  # Multiplicación elemento a elemento
@@ -285,8 +284,8 @@ def wave_function(n, alpha, beta):
                     beta * x**2 * (1 - x)**2 * product_terms + 
                     alpha * x**2 * (1 - x)**3 * product_terms)
       
-    x = np.linspace(0, 1, 40)
-    y = np.linspace(0, 1, 40)
+    x = np.linspace(0, 1, 70)
+    y = np.linspace(0, 1, 70)
     
     X, Y = np.meshgrid(x, y)
     phi_x = phi_n(x, n, alpha, beta)
@@ -298,9 +297,12 @@ def wave_function(n, alpha, beta):
     ax = fig.add_subplot(111, projection='3d')
     
     surf = ax.plot_surface(X, Y, phi_c, cmap='viridis', edgecolor='none', alpha=0.7, rstride=2, cstride=2)
-    
-    #ax.plot_surface(A, B, Z,cmap='viridis', edgecolor='none', rstride=2, cstride=2, alpha=0.7)
+  
+
     fig.colorbar(surf, ax=ax, shrink=0.5, pad=0.1,  aspect=30)  # Barra de color
+    ax.contour(X, Y, phi_c, zdir='z', offset=ax.get_zlim()[0],  alpha=0.5, levels=10)
+    ax.contour(X, Y, phi_c, zdir='x', offset=ax.get_ylim()[-1], alpha=0.5, levels=5, colors="gray")
+    ax.contour(X, Y, phi_c, zdir='y', offset=ax.get_ylim()[0],  alpha=0.5, levels=5, colors="gray")
     
     ax.set_xlabel('x')
     ax.set_ylabel('y')
@@ -315,9 +317,12 @@ def wave_function(n, alpha, beta):
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
-    ax.xaxis.set_major_locator(MultipleLocator(4))
-    ax.yaxis.set_major_locator(MultipleLocator(4))
-    ax.zaxis.set_major_locator(MultipleLocator(4))
+    ax.grid(False)
+
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
+    
     ax.xaxis._axinfo['tick']['inward_factor'] = 0
     ax.xaxis._axinfo['tick']['outward_factor'] = 0.4
     ax.yaxis._axinfo['tick']['inward_factor'] = 0
@@ -325,7 +330,8 @@ def wave_function(n, alpha, beta):
     ax.zaxis._axinfo['tick']['inward_factor'] = 0
     ax.zaxis._axinfo['tick']['outward_factor'] = 0.4
     
-    plt.savefig("wave_slab.pdf")
+    #plt.savefig("wave_slab.pdf")
+    #plt.savefig("wave_slab.pdf", format="pdf", transparent=True, dpi=300)
     plt.tight_layout()
 
 
@@ -359,7 +365,10 @@ def density(n, alpha, beta):
     
     surf = ax.plot_surface(X, Y, phi_d, cmap='viridis', edgecolor='none', alpha=0.7, rstride=2, cstride=2)
     
-    #ax.plot_surface(A, B, Z,cmap='viridis', edgecolor='none', rstride=2, cstride=2, alpha=0.7)
+    ax.contour(X, Y, phi_d, zdir='z', offset=ax.get_zlim()[0],  alpha=0.7, levels=15)
+    ax.contour(X, Y, phi_d, zdir='x', offset=X.max(),           alpha=0.7, levels=5, colors="gray")
+    ax.contour(X, Y, phi_d, zdir='y', offset=ax.get_zlim()[0],  alpha=0.7, levels=5, colors="gray")
+    
     fig.colorbar(surf, ax=ax, shrink=0.5, pad=0.1,  aspect=30)  # Barra de color
     
     ax.set_xlabel('x')
@@ -375,9 +384,11 @@ def density(n, alpha, beta):
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     
-    ax.xaxis.set_major_locator(MultipleLocator(4))
-    ax.yaxis.set_major_locator(MultipleLocator(4))
-    ax.zaxis.set_major_locator(MultipleLocator(4))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=3))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=4))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=4))
+    ax.grid(False)
+
     ax.xaxis._axinfo['tick']['inward_factor'] = 0
     ax.xaxis._axinfo['tick']['outward_factor'] = 0.4
     ax.yaxis._axinfo['tick']['inward_factor'] = 0
@@ -386,4 +397,3 @@ def density(n, alpha, beta):
     ax.zaxis._axinfo['tick']['outward_factor'] = 0.4
     
     plt.tight_layout()
-
