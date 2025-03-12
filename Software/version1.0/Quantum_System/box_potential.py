@@ -7,7 +7,7 @@ from matplotlib.ticker import MaxNLocator
 plt.rcParams['toolbar'] = 'none'
 plt.rcParams['mathtext.fontset'] = 'cm'  # Usa la fuente Computer Modern para matemáticas
 font_params = {"fontsize": 16, "fontweight": "bold", "fontstyle": "italic"}
-plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
+#plt.rcParams['axes3d.mouserotationstyle'] = 'azel' 
 
 
 E = {'E1': lambda a, b:  (105.0*a**2 + 42.0*a*b + 5.9999999999997*b**2)/(21*a**2 + 9*a*b + b**2),
@@ -43,7 +43,7 @@ def Box():
     ax.text(0.5, 0.5, 1,r'$e^- \Rightarrow E_{n}$', fontsize=16, color='black', ha='center')
 
 
-    ax.set_title(r"$\left[ \frac{\hat{p}^2}{2m} + 0 \hat{P}_{\text{dentro}} + \infty \hat{P}_{\text{fuera}} \right] |\psi\rangle = E|\psi\rangle$", fontsize=16)
+    ax.set_title(r"$\left[ \frac{\hat{p}^2}{2m} + 0 \hat{P}_{dentro} + \infty \hat{P}_{fuera} \right] |\psi\rangle = E|\psi\rangle$", fontsize=16)
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.set_zlim(0, 1)
