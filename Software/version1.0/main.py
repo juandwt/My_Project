@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 colors = {"green_1": "#4a6c65", "black":"#000000", "white": "#ffffff"}
 
-
 # =============
 #  Gui's class 
 # =============      
@@ -59,6 +58,7 @@ class Gui:
 
         self.create_widgets()
 
+        
     def create_widgets(self):
 
         self.Energy_l = tk.Entry(self.left_half, width=6, bg=colors['green_1'], fg="white", bd=1, relief="flat",
@@ -103,7 +103,7 @@ class Gui:
         btn_graph_3D.config(bg=colors['green_1'], borderwidth=0, highlightthickness=0, relief="flat")
         btn_graph_3D.place(relx=0.5, rely=0.9, anchor="center")
 
-
+        
         # start points
         self.p1 = tk.Entry(self.left_half, width=6, bg=colors['green_1'], fg="white", bd=1, relief="flat",
                            highlightbackground="white", highlightcolor="white")
@@ -122,6 +122,7 @@ class Gui:
         p2.place(relx=0.6, rely=0.5, anchor="center")
 
         # learning rate 
+
         self.lr = tk.Entry(self.left_half, width=6, bg=colors['green_1'],fg="white", bd=1, relief="flat",
                            highlightbackground="white", highlightcolor="white")
         self.lr.place(relx=0.38, rely=0.4, anchor="center")
@@ -130,10 +131,14 @@ class Gui:
         lr_label = tk.Label(self.left_half, text="Lr", fg="white")
         lr_label.config(bg=colors['green_1'], borderwidth=0, highlightthickness=0, relief="flat")
         lr_label.place(relx=0.23, rely=0.4, anchor="center")
+        
+
+        self.epochs_var = tk.StringVar()
+        self.epochs_var.trace_add("write", lambda *args: self.limit(*args))
 
         #Epochs
         self.epochs = tk.Entry(self.left_half, width=6, bg=colors['green_1'],fg="white", bd=1, relief="flat",
-                               highlightbackground="white", highlightcolor="white")
+                               highlightbackground="white", highlightcolor="white", textvariable=None)
         self.epochs.place(relx=0.38, rely=0.5, anchor="center")
 
         ep_label = tk.Label(self.left_half, text="Ep", fg="white")
@@ -141,7 +146,7 @@ class Gui:
         ep_label.place(relx=0.23, rely=0.5, anchor="center")
 
 
-        menu_boton = tk.Menubutton(self.left_half, text="Quamtum System", relief=tk.FLAT,
+        menu_boton = tk.Menubutton(self.left_half, text="Quantum System", relief=tk.FLAT,
                                    bg=colors["green_1"], fg="white", bd=0)
 
         menu_boton.menu = tk.Menu(menu_boton, tearoff=0, 
@@ -156,7 +161,15 @@ class Gui:
         menu_boton.menu.add_command(label="Gaussian Well",         command=self.select_system_gauss)         
 
         menu_boton.place(relx=0.36, rely=0.2, anchor="center")
-
+    
+    def limit(self, *args):
+        value = self.epochs_var.get()
+        if value.isdigit():
+            if int(value)>100:
+                self.epochs_var.set("1000")
+        else:
+            self.epochs_var.set("")
+    
 
     def select_system_box(self):
 
@@ -190,7 +203,7 @@ class Gui:
 
 
         self.clean(tab_name)
-        fig, ani = gauss_well(-20)
+        fig = gauss_well(-20)
 
         self.canvas_dict[tab_name] = FigureCanvasTkAgg(fig, master=current_tab)
         self.canvas_dict[tab_name].draw()
@@ -473,8 +486,7 @@ class Gui:
 
     def Algorithm(self):
         
-        from Quantum_System.Algorithm import Algorithm
-        
+        #from Quantum_System.Algorithm.Algorithm import Algorithm
         current_tab = self.notebook.nametowidget(self.notebook.select())
         
         for name, frame in self.tabs.items():
@@ -483,9 +495,31 @@ class Gui:
                 break
 
         self.clean(tab_name)
-        Algorithm()
+        #fig = Algorithm()
+        #fig = manual()
 
-        self.canvas_dict[tab_name] = FigureCanvasTkAgg(plt.gcf(), master=current_tab)
+        import matplotlib.image as mpimg
+        import os
+        
+        os.chdir(os.path.dirname(os.path.abspath(__file__)))
+        if   self.S == 0:
+            ruta = os.path.abspath('algorithm.jpg')
+        elif self.S == 1:
+            ruta = os.path.abspath('algorithm1.jpg')
+        elif self.S == 2:
+            ruta = os.path.abspath('algorithm2.jpg')
+        else:
+            None
+
+        imagen = mpimg.imread(ruta)
+        
+        fig, ax = plt.subplots()
+        
+        plt.subplots_adjust(left=0, right=1, bottom=0, top=1)
+        ax.axis("off")
+        ax.imshow(imagen)
+
+        self.canvas_dict[tab_name] = FigureCanvasTkAgg(fig, master=current_tab)
         self.canvas_dict[tab_name].draw()
         self.canvas_dict[tab_name].get_tk_widget().pack(side=tk.RIGHT, fill="both", expand=1)
      
@@ -510,8 +544,8 @@ if __name__ == "__main__":
 
     window = tk.Tk()
     window.config(bg="#FFFFFF")
-    window.minsize(1100, 530) # 1100 550
-    window.maxsize(1100, 530)
+    window.minsize(1150, 550) # 1100 550
+    window.maxsize(1150, 550)
     app = Gui(window=window)
-    app.logo()
+    #app.Algorithm()
     window.mainloop()
