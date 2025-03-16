@@ -2,7 +2,7 @@
 #                                                                             #
 #                              NOTICE OF COPYRIGHT                            #
 # Educational software aimed at teaching the variational method in            #
-# confined quantum systems.                                                   #
+# confined quantum systems.                                                    #
 #                              SEQVS                                          #
 #                                                                             #
 # Copyright (C) 2025                                                          #
@@ -22,7 +22,7 @@
 #   *** University of Texas at El Paso (UTEP) (USA)                           #
 #                                                                             #
 # Web page:                                                                   #
-#   https://github.com/fisinforgh/QVS                                         #
+#   https://github.com/fisinforgh/QVS                                          #
 #                                                                             #
 # This program is free software; you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
