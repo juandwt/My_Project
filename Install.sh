@@ -2,8 +2,8 @@
 #                                                                             #
 #                              NOTICE OF COPYRIGHT                            #
 # Educational software aimed at teaching the variational method in            #
-# confined quantum systems.                                                   #
-#                              SEQVS                                           #
+# confined quantum systems.                                                    #
+#                              SEQVS                                          #
 #                                                                             #
 # Copyright (C) 2025                                                          #
 #                                                                             #
