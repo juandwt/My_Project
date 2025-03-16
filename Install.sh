@@ -8,9 +8,9 @@
 # Copyright (C) 2025                                                          #
 #                                                                             #
 # Authors:                                                                    #
-#   [1] Julián Salamanca*                            	                    #
+#   [1] Julián Salamanca*                            	                      #
 #   [2] Diego Julián Rodríguez-Patarroyo**                                    #
-#   [3] Juan Diego Wilches Torres***                                           #
+#   [3] Juan Diego Wilches Torres***                                          #
 #                                                                             #
 #   [1] jasalamanca@udistrital.edu.co (profesor Universidad Distrital)        #
 #   [2] jdwilchest@udistrital.edu.co  (Licenciado en física)                  #
@@ -27,7 +27,7 @@
 # This program is free software; you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
 # the Free Software Foundation; either version 2 of the License, or           #
-# (at your option) any later version.                                          #
+# (at your option) any later version.                                         #
 #                                                                             #
 # This program is distributed in the hope that it will be useful,             #
 # but WITHOUT ANY WARRANTY; without even the implied warranty of              #
