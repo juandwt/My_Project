@@ -97,12 +97,7 @@ if [ -z "$PROJECT_DIR" ]; then
     exit 1
 fi
 
-#git clone https://github.com/juandwt/My_Project.git "$PROJECT_DIR/My_Project"
-
-git clone --filter=blob:none --no-checkout https://github.com/juandwt/My_Project.git "$PROJECT_DIR/My_Project"
-cd "$PROJECT_DIR/My_Project"
-git sparse-checkout init --cone
-git sparse-checkout set QVS_core
+git clone https://github.com/juandwt/My_Project.git "$PROJECT_DIR/My_Project"
 
 
 if [ $? -ne 0 ]; then
@@ -113,8 +108,8 @@ fi
 echo "[Desktop Entry]
 Version=1.0
 Name=QVS
-Exec=python3 $PROJECT_DIR/QVS_core/main.py
-Icon=$PROJECT_DIR/QVS_core/Images/logo.svg
+Exec=python3 $PROJECT_DIR/My_Project/QVS_core/main.py
+Icon=$PROJECT_DIR/My_Porject/QVS_core/Images/logo.svg
 Type=Application
 Terminal=false
 Categories=Development;" > "$DESKTOP_DIR/QVS.desktop"
