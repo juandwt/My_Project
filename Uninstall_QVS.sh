@@ -40,6 +40,7 @@
 #               http://www.gnu.org/copyleft/gpl.html                          #
 #                                                                             #
 ###############################################################################
+####
 
 
 zenity --question --title="Desinstalación de My Project" --width=400 --height=200 --text="¿Deseas desinstalar My Project?" --ok-label="Sí" --cancel-label="No"
