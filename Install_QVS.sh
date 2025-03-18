@@ -97,19 +97,17 @@ if [ -z "$PROJECT_DIR" ]; then
     exit 1
 fi
 
-git clone https://github.com/juandwt/My_Project.git "$PROJECT_DIR/My_Project"
 
+git clone https://github.com/juandwt/My_Project.git
+cp -r "$PROJECT_DIR/My_Project/QVS_core" "$PROJECT_DIR/"
+rm -rf "$PROJECT_DIR/My_Project"
 
-if [ $? -ne 0 ]; then
-    zenity --error --text="Error: No se pudo clonar el repositorio. Verifica la URL y la conexión a internet."
-    exit 1
-fi
 
 echo "[Desktop Entry]
 Version=1.0
 Name=QVS
-Exec=python3 $PROJECT_DIR/My_Project/QVS_core/main.py
-Icon=$PROJECT_DIR/My_Project/QVS_core/Images/logo.svg
+Exec=python3 $PROJECT_DIR/QVS_core/main.py
+Icon=$PROJECT_DIR/QVS_core/Images/logo.svg
 Type=Application
 Terminal=false
 Categories=Development;" > "$DESKTOP_DIR/QVS.desktop"
