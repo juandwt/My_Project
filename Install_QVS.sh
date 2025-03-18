@@ -117,10 +117,10 @@ Exec=python3 $PROJECT_DIR/QVS_core/main.py
 Icon=$PROJECT_DIR/QVS_core/Images/logo.svg
 Type=Application
 Terminal=false
-Categories=Development;" > "$DESKTOP_DIR/My_project.desktop"
+Categories=Development;" > "$DESKTOP_DIR/QVS.desktop"
 
-chmod +x "$DESKTOP_DIR/My_project.desktop"
-gio set "$DESKTOP_DIR/My_project.desktop" metadata::trusted true
+chmod +x "$DESKTOP_DIR/QVS.desktop"
+gio set "$DESKTOP_DIR/QVS.desktop" metadata::trusted true
 
 zenity --info --width=500 --height=200 --text="El acceso directo ha sido creado en el Escritorio" --ok-label="Continuar"
 
