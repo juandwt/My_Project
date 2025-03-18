@@ -2,7 +2,7 @@
 #                                                                             #
 #                              NOTICE OF COPYRIGHT                            #
 # Educational software aimed at teaching the variational method in            #
-# confined quantum systems.                                                    #
+# confined quantum systems.                                                   #
 #                              SEQVS                                          #
 #                                                                             #
 # Copyright (C) 2025                                                          #
@@ -22,7 +22,7 @@
 #   *** University of Texas at El Paso (UTEP) (USA)                           #
 #                                                                             #
 # Web page:                                                                   #
-#   https://github.com/fisinforgh/QVS                                          #
+#   https://github.com/fisinforgh/QVS                                         #
 #                                                                             #
 # This program is free software; you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
@@ -58,12 +58,12 @@ if [ $? -eq 0 ]; then
     fi
 
     DESKTOP_DIR=$(xdg-user-dir DESKTOP)
-    if [ -f "$DESKTOP_DIR/My_project.desktop" ]; then
-        rm "$DESKTOP_DIR/My_project.desktop"
+    if [ -f "$DESKTOP_DIR/QVS.desktop" ]; then
+        rm "$DESKTOP_DIR/QVS.desktop"
     fi
 
     echo "Buscando la carpeta del proyecto..."
-    project_paths=$(find /home -type d -name "My_Project" 2>/dev/null)
+    project_paths=$(find /home -type d -name "QVS_core" 2>/dev/null)
 
     if [ -n "$project_paths" ]; then
         for project_path in $project_paths; do
@@ -74,7 +74,7 @@ if [ $? -eq 0 ]; then
         echo "Carpeta no encontrada."
     fi
 
-    trash_paths=$(find ~/.local/share/Trash/files/ -type d -name "My_Project" 2>/dev/null)
+    trash_paths=$(find ~/.local/share/Trash/files/ -type d -name "QVS_core" 2>/dev/null)
     if [ -n "$trash_paths" ]; then
         for trash_path in $trash_paths; do
             echo "Carpeta encontrada en la papelera: $trash_path"
