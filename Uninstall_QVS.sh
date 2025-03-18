@@ -41,10 +41,6 @@
 
 #!/bin/bash
 
-# =======================================
-#       Desinstalador de My Project
-# =======================================
-
 zenity --question --title="Desinstalación de My Project" --width=400 --height=200 --text="¿Deseas desinstalar My Project?" --ok-label="Sí" --cancel-label="No"
 if [ $? -eq 0 ]; then
     zenity --question --title="Eliminar Dependencias" --width=400 --height=200 --text="Se eliminarán todas las dependencias relacionadas con My Project. ¿Deseas continuar?" --ok-label="Sí" --cancel-label="No"
@@ -68,7 +64,7 @@ if [ $? -eq 0 ]; then
     if [ -n "$project_paths" ]; then
         for project_path in $project_paths; do
             echo "Carpeta encontrada en: $project_path"
-            rm -rf "$project_path"  
+            rm -rf "$project_path"
         done
     else
         echo "Carpeta no encontrada."
@@ -78,10 +74,12 @@ if [ $? -eq 0 ]; then
     if [ -n "$trash_paths" ]; then
         for trash_path in $trash_paths; do
             echo "Carpeta encontrada en la papelera: $trash_path"
-            rm -rf "$trash_path"          done
+            rm -rf "$trash_path"
+        done
     fi
 
     zenity --info --width=400 --height=200 --text="Desinstalación completada exitosamente."
+
 else
     zenity --info --width=400 --height=200 --text="Desinstalación cancelada."
 fi
