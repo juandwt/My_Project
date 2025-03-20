@@ -5,27 +5,26 @@
 #                                                                             #
 #                              NOTICE OF COPYRIGHT                            #
 # Educational software aimed at teaching the variational method in            #
-# confined quantum systems.                                                   #
+# confined quantum systems.                                                    #
 #                              SEQVS                                          #
 #                                                                             #
 # Copyright (C) 2025                                                          #
 #                                                                             #
 # Authors:                                                                    #
-#   [1] Julián Salamanca*                            	                      #
-#   [2] Diego Julián Rodríguez-Patarroyo**                                    #
-#   [3] Juan Diego Wilches Torres***                                          #
+#   [1] Juan Diego Wilches Torres*                            	              #
+#   [2] Julian Andrés Salamanca Bernal**                                      #
+#   [3] Diego Julián Rodríguez-Patarroyo***                                   #
 #                                                                             #
-#   [1] jasalamanca@udistrital.edu.co (profesor Universidad Distrital)        #
-#   [2] jdwilchest@udistrital.edu.co  (Licenciado en física)                  #
-#   [3] maramirezramos@utep.edu                                               #
+#   [1] jdwilchest@udistrital.edu.co  (Licenciado en física)                  #
+#   [2] jasalamanca@udistrital.edu.co (profesor Universidad Distrital)        #
+#   [3] djrodriguezp@udistrital.edu.co (profesor Universidad Distrital)       #
 #                                                                             #
-#   *   Grupo de Física e Informática (FISINFOR)                              #
-#   **  Grupo de Laboratorio de Fuentes Alternas de Energía (LIFAE)           #
-#   *,** Universidad Distrital Francisco José de Caldas (Bogotá, Colombia)    #
-#   *** University of Texas at El Paso (UTEP) (USA)                           #
+#  *,** Grupo de Física e Informática (FISINFOR)		                      #
+#  *** Grupo de Laboratorio de Fuentes Alternas de Energía (LIFAE)	          #
+#  *,**,*** Universidad Distrital Francisco José de Caldas (Bogotá, Colombia) #	
 #                                                                             #
 # Web page:                                                                   #
-#   https://github.com/fisinforgh/QVS                                         #
+#   https://github.com/fisinforgh/QVS                                          #
 #                                                                             #
 # This program is free software; you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
@@ -40,7 +39,6 @@
 #               http://www.gnu.org/copyleft/gpl.html                          #
 #                                                                             #
 ###############################################################################
-####
 
 
 zenity --question --title="Desinstalación de My Project" --width=400 --height=200 --text="¿Deseas desinstalar My Project?" --ok-label="Sí" --cancel-label="No"
