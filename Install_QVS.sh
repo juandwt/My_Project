@@ -40,8 +40,6 @@
 ###############################################################################
 
 
-
-
 DESKTOP_DIR=$(xdg-user-dir DESKTOP)
 
 zenity --info --title="Bienvenido al instalador" --width=400 --height=200 --text="Vamos a verificar las dependencias" --ok-label="Continuar"
